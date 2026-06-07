@@ -14,6 +14,7 @@ export default function CavalryPlayerComponent({ src, width = 800, height = 600 
     let player: any
 
     async function init() {
+        // @ts-ignore
       const { CavalryPlayer } = await import(/* webpackIgnore: true */ '/cavalry/CavalryPlayer.js')
       
       player = new CavalryPlayer(containerRef.current, {
