@@ -7,7 +7,7 @@ export default function Page() {
        记一天是一天
       </h1>
       <p className="mb-4">
-        {`探索nextJS`}
+        {`这里是Animation练习日记`}
       </p>
       <div className="my-8">
         <BlogPosts />

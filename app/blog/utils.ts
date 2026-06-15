@@ -59,7 +59,10 @@ export function formatDate(date: string, includeRelative = false) {
     date = `${date}T00:00:00`
   }
   let targetDate = new Date(date)
-
+    let fullDate = targetDate.toLocaleString('en-us', {
+    month: 'long',
+    day: 'numeric',
+  })
   let yearsAgo = currentDate.getFullYear() - targetDate.getFullYear()
   let monthsAgo = currentDate.getMonth() - targetDate.getMonth()
   let daysAgo = currentDate.getDate() - targetDate.getDate()
@@ -76,15 +79,14 @@ export function formatDate(date: string, includeRelative = false) {
     formattedDate = 'Today'
   }
 
-  let fullDate = targetDate.toLocaleString('en-us', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  })
-
   if (!includeRelative) {
     return fullDate
   }
 
-  return `${fullDate} (${formattedDate})`
+  return fullDate
+}
+
+export function getYear(date: string) {
+  if (!date.includes('T')) date = `${date}T00:00:00`
+  return new Date(date).getFullYear().toString()
 }
