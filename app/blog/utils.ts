@@ -90,3 +90,29 @@ export function getYear(date: string) {
   if (!date.includes('T')) date = `${date}T00:00:00`
   return new Date(date).getFullYear().toString()
 }
+
+export function getMonth(date: string) {
+  if (!date.includes('T')) date = `${date}T00:00:00`
+  return new Date(date).getMonth() + 1 // 1-12
+}
+
+export function formatMonthDay(date: string) {
+  if (!date.includes('T')) date = `${date}T00:00:00`
+  const d = new Date(date)
+  return `${d.getMonth() + 1}/${d.getDate()}`
+}
+
+// 按年→月分组
+export function groupPostsByYearMonth(posts: ReturnType<typeof getBlogPosts>) {
+  const map: Record<string, Record<string, typeof posts>> = {}
+
+  for (const post of posts) {
+    const year = getYear(post.metadata.publishedAt)
+    const month = String(getMonth(post.metadata.publishedAt)).padStart(2, '0')
+    if (!map[year]) map[year] = {}
+    if (!map[year][month]) map[year][month] = []
+    map[year][month].push(post)
+  }
+
+  return map
+}
